@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
-import API_KEY from './../config';
-//import API_KEY2 from './../config.js';
-
-// var API_KEY = require('./../config.json');
-//const API_KEY = ;
+import YTSearch from 'youtube-api-search';
 
 // Create a new component. This component should produce some HTML.
 
@@ -16,9 +12,13 @@ import API_KEY from './../config';
 //   return <div>Hi!</div>; 
 // }
 
+// *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
+YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
+  console.log("TEST");
+  console.log(data);
+});
+
 // NEW ES6 syntax for function
-//  console.log(API_KEY.YOUTUBE_API_KEY);
-// debugger;
 const App = () => { 
   return (
     <div>

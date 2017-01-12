@@ -20,17 +20,29 @@ class SearchBar extends Component { // creates a new class call SearchBar and gi
         super(props);
 
         this.state = { term: ''};
+
+        // State is a plain javascipt object that exist on any component that is a class based component. 
+        // Each instance of a class based component has its own copy of state. 
+        // We initialize the state by defining the constructor method and setting the state as "this.state" inside of it.
+        // In this case, the name of the first property is 'term'.  
     }
     
     render() {
-        //return <input onChange={this.onInputChange} />;
-        //return <input onChange={(event) => console.log(event.target.value)} />;
+        /**
+         * ONLY manipulate state by using "this.stateState(...)". NEVER use "this.state.term = ..." to manipulate state
+         * except in the constructor. Using "this.stateState(...)" allows us to maintain continuity. Behind the scene react 
+         * is doing a tremendous of stuff to the state object. If we just do "this.state.term = ...", React doesn't really know
+         * the value changed. Therefore, use "this.stateState(...)" to inform React, the state is changing and here is what the new
+         * state is. "this.stateState(...)" cause the component to automatically to re-render. 
+         */
         return  (
             <div>
+                value = {this.state.term}
                 <input onChange={(event) => this.setState({ term: event.target.value})} />
-                Value of the input: {this.state.term}
             </div>
         );
+
+        // Controlled comopent have its value set by the state. 
     }
 
     // onInputChange(event) {
