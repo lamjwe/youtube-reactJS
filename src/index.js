@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
 import YTSearch from 'youtube-api-search';
+import VideoList from './components/video_list';
 
 // Create a new component. This component should produce some HTML.
-
+const API_KEY = 'AIzaSyBttmRC8-ruIsGaGE50sOjU8k9_dx4tMZ8';
 // const vs var : 
 //  - they both declare a variable, but with const, we are saying 
 //    that this is the final value of this variable. Therefore we call it constant.
@@ -12,19 +13,27 @@ import YTSearch from 'youtube-api-search';
 //   return <div>Hi!</div>; 
 // }
 
-// *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
-YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
-  console.log("TEST");
-  console.log(data);
-});
+class App extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {videos: []};
 
-// NEW ES6 syntax for function
-const App = () => { 
-  return (
-    <div>
-      <SearchBar />
-    </div>
-  );
+    // *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
+    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+      // when we have a key and a value of the same terms, we can use new ES6 syntax.
+      console.log(videos);
+      this.setState({videos}); //this.setState({videos: videos})
+    });
+
+  }
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <VideoList videos={this.state.videos} />
+      </div>
+    );
+  }
 }
 
 // jsx : 
