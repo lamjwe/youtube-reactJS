@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
 import YTSearch from 'youtube-api-search';
 import VideoList from './components/video_list';
-
+import APIKEY from './../config';
 // Create a new component. This component should produce some HTML.
-const API_KEY = 'AIzaSyBttmRC8-ruIsGaGE50sOjU8k9_dx4tMZ8';
+
+const API_KEY = APIKEY.YOUTUBE_API_KEY;
 // const vs var : 
 //  - they both declare a variable, but with const, we are saying 
 //    that this is the final value of this variable. Therefore we call it constant.
@@ -13,11 +14,11 @@ const API_KEY = 'AIzaSyBttmRC8-ruIsGaGE50sOjU8k9_dx4tMZ8';
 //   return <div>Hi!</div>; 
 // }
 
-class App extends Component { 
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {videos: []};
-
+    
     // *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
     YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
       // when we have a key and a value of the same terms, we can use new ES6 syntax.
@@ -26,6 +27,7 @@ class App extends Component {
     });
 
   }
+
   render() {
     return (
       <div>
