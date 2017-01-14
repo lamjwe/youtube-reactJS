@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
 import YTSearch from 'youtube-api-search';
 import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
 import APIKEY from './../config';
 // Create a new component. This component should produce some HTML.
 
@@ -18,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {videos: []};
-    
+
     // *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
     YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
       // when we have a key and a value of the same terms, we can use new ES6 syntax.
@@ -32,6 +33,7 @@ class App extends Component {
     return (
       <div>
         <SearchBar />
+        <VideoDetail video={this.state.videos[0]} />
         <VideoList videos={this.state.videos} />
       </div>
     );
