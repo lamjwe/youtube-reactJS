@@ -18,13 +18,20 @@ const API_KEY = APIKEY.YOUTUBE_API_KEY;
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {videos: []};
+    this.state = {
+      videos: [],
+      selectedVideo: null
+    };
 
     // *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
     YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
       // when we have a key and a value of the same terms, we can use new ES6 syntax.
       console.log(videos);
-      this.setState({videos}); //this.setState({videos: videos})
+      //this.setState({videos}); //this.setState({videos: videos})
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      });
     });
 
   }
@@ -33,8 +40,10 @@ class App extends Component {
     return (
       <div>
         <SearchBar />
-        <VideoDetail video={this.state.videos[0]} />
-        <VideoList videos={this.state.videos} />
+        <VideoDetail video={this.state.selectedVideo} />
+        <VideoList 
+          onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+          videos={this.state.videos} />
       </div>
     );
   }
