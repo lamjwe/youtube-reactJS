@@ -36,9 +36,10 @@ class SearchBar extends Component { // creates a new class call SearchBar and gi
          * state is. "this.stateState(...)" cause the component to automatically to re-render. 
          */
         return  (
-            <div>
-                value = {this.state.term}
-                <input onChange={(event) => this.setState({ term: event.target.value})} />
+            <div className="search-bar">
+                <input 
+                    value = {this.state.term} 
+                    onChange={(event) => this.setState({ term: event.target.value})} />
             </div>
         );
 
