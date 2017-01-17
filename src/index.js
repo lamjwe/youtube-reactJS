@@ -1,3 +1,4 @@
+import _ from 'lodash'; // usually just use "_" for lodash
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
@@ -40,9 +41,13 @@ class App extends Component {
   }
 
   render() {
+    // passed our fat arrow function to debounce. Debounce takes the function and returns a 
+    // new function that can only be called once every 300ms. 
+    const videoSearch = _.debounce((term) => {this.videoSearch(term) }, 300);
+
     return (
       <div>
-        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList 
           onVideoSelect={selectedVideo => this.setState({selectedVideo})}
