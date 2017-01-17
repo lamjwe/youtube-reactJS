@@ -24,8 +24,12 @@ class App extends Component {
       selectedVideo: null
     };
 
+    this.videoSearch('surfboards');
+  }
+
+  videoSearch(term) {
     // *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
-    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+    YTSearch({key: API_KEY, term: term}, (videos) => {
       // when we have a key and a value of the same terms, we can use new ES6 syntax.
       //this.setState({videos}); //this.setState({videos: videos})
       this.setState({
@@ -33,13 +37,12 @@ class App extends Component {
         selectedVideo: videos[0]
       });
     });
-
   }
 
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList 
           onVideoSelect={selectedVideo => this.setState({selectedVideo})}
