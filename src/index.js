@@ -18,6 +18,7 @@ const API_KEY = APIKEY.YOUTUBE_API_KEY;
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       videos: [],
       selectedVideo: null
@@ -26,7 +27,6 @@ class App extends Component {
     // *** Downwards Data Flow : We want the most parent component to be responsible for fetching the data. ***
     YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
       // when we have a key and a value of the same terms, we can use new ES6 syntax.
-      console.log(videos);
       //this.setState({videos}); //this.setState({videos: videos})
       this.setState({
         videos: videos,
